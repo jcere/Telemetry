@@ -1,29 +1,21 @@
-# README #
+## Project Description ##
 
-This README would normally document whatever steps are necessary to get your application up and running.
 
-### What is this repository for? ###
+My idea is to build a telemetry service to collect data around my home and provide it to a webpage for display.
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+This will give me a chance to investigate some features of (and gain some practice with) Microsoft's web development stack, and allow me to revisit some of my old electronics skills; by creating a fun project with data. 
 
-### How do I get set up? ###
+Because I like data.
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+## The Plan ##
 
-### Contribution guidelines ###
+First, to collect the data using my Raspberry Pi and make it available on my network. Second, the data will be read by a telemetry service and stored using MS SQLServer, ASP.NET MVC/WebAPI, and Entity Framework. The third device in the chain will be a web API (using the service) that will provide querying and filtering capabilities and reply to requests providing the data as JSON. Finally, I will use a fairly simple web page as the front end (to provide pretty plots) using JavaScript and the D3.js library.
 
-* Writing tests
-* Code review
-* Other guidelines
+That's the plan anyway.
 
-### Who do I talk to? ###
+## In Progress ##
 
-* Repo owner or admin
-* Other community or team contact
+Some experimenting with manipulating the GPIO pins on RPi
+A simple web page for displaying data
+A service created with the ASP.NET WebAPI scaffolding
+Several blog posts that I will (try) to continually update as I go (iterative blogging, is that a thing?)
