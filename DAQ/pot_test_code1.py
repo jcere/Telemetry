@@ -1,6 +1,10 @@
 ﻿import spidev
 import time
 import os
+import ptvsd
+
+# Enable remote debugging
+ptvsd.enable_attach(secret=None)
 	 
 # Open SPI bus
 spi = spidev.SpiDev()
@@ -44,25 +48,24 @@ def ConvertTemp(data,places):
 pot_channel  = 0
 	 
 # Define delay between readings
-delay = 5
+delay = 60
+
+# Get a time stamp
+gmtime = time.gmtime()
+current_time = time.asctime(gmtime)
+
+# Limit the loop 	 
+for x in range(0, 5):
 	 
-while True:
-	 
-	# Read the light sensor data
-	light_level = ReadChannel(light_channel)
-	light_volts = ConvertVolts(light_level,2)
-	 
-	# Read the temperature sensor data
-	temp_level = ReadChannel(temp_channel)
-	temp_volts = ConvertVolts(temp_level,2)
-	temp       = ConvertTemp(temp_level,2)
-	 
-	# Print out results
-	print "--------------------------------------------"
-	print("Light: {} ({}V)".format(light_level,light_volts))
-	print("Temp : {} ({}V) {} deg C".format(temp_level,temp_volts,temp))
-	 
-	# Wait before repeating loop
-	time.sleep(delay)
+	# Read the input voltage
+    level = ReadChannel(pot_channel)
+    volts = ConvertVolts(level,2)
+    
+    # Print out results
+    print "--------------------------------------------"
+    print("Level: {} ({}V) {}".format(level,volts,current_time))
+    
+    # Wait before repeating loop
+    time.sleep(delay)
 
 
