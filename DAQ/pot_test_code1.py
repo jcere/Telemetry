@@ -1,17 +1,18 @@
 ﻿import spidev
 import time
 import os
-import ptvsd
+
+# import ptvsd
 
 # Enable remote debugging
-#ptvsd.enable_attach(secret = 'stuff', address = ('0.0.0.0', 5657))
-#ptvsd.wait_for_attach()
+# ptvsd.enable_attach(secret = 'stuff', address = ('0.0.0.0', 5657))
+# ptvsd.wait_for_attach()
 	 
 # Open SPI bus
 spi = spidev.SpiDev()
 spi.open(0,0)
 
-ptvsd.break_into_debugger()	 
+# ptvsd.break_into_debugger()	 
 # Function to read SPI data from MCP3008 chip
 # Channel must be an integer 0-7
 def ReadChannel(channel):
@@ -62,12 +63,12 @@ for x in range(0, 5):
 	# Read the input voltage
     level = ReadChannel(pot_channel)
     volts = ConvertVolts(level,2)
+    temp = ConvertTemp(level,2)
     
     # Print out results
-    print "--------------------------------------------"
+    print "------------------------------------------------"
     print("Level: {} ({}V) {}".format(level,volts,current_time))
+    print("Temp: {} ({}V) {}".format(level,temp,current_time))
     
     # Wait before repeating loop
     time.sleep(delay)
-
-
