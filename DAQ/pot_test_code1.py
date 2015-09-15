@@ -4,12 +4,14 @@ import os
 import ptvsd
 
 # Enable remote debugging
-ptvsd.enable_attach(secret=None)
+#ptvsd.enable_attach(secret = 'stuff', address = ('0.0.0.0', 5657))
+#ptvsd.wait_for_attach()
 	 
 # Open SPI bus
 spi = spidev.SpiDev()
 spi.open(0,0)
-	 
+
+ptvsd.break_into_debugger()	 
 # Function to read SPI data from MCP3008 chip
 # Channel must be an integer 0-7
 def ReadChannel(channel):
