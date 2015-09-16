@@ -51,7 +51,7 @@ def ConvertTemp(data,places):
 pot_channel  = 0
 	 
 # Define delay between readings
-delay = 60
+delay = 30
 
 # Get a time stamp
 gmtime = time.gmtime()
@@ -68,7 +68,16 @@ for x in range(0, 5):
     # Print out results
     print "------------------------------------------------"
     print("Level: {} ({}V) {}".format(level,volts,current_time))
-    print("Temp: {} ({}V) {}".format(level,temp,current_time))
+    print("Temp: {} ({}C) {}".format(level,temp,current_time))
+    
+    # Print results to file
+    fileName = 'workfile.json'
+    fileOp = 'w'
+    outputFile = open(fileName, fileOp)
+    dataArr = [level,volts,temp,current_time]
+    json.dump(dataArr, outputFile)
     
     # Wait before repeating loop
     time.sleep(delay)
+
+
