@@ -1,18 +1,13 @@
 ﻿import spidev
 import time
 import os
+import json
 
-# import ptvsd
 
-# Enable remote debugging
-# ptvsd.enable_attach(secret = 'stuff', address = ('0.0.0.0', 5657))
-# ptvsd.wait_for_attach()
-	 
 # Open SPI bus
 spi = spidev.SpiDev()
 spi.open(0,0)
 
-# ptvsd.break_into_debugger()	 
 # Function to read SPI data from MCP3008 chip
 # Channel must be an integer 0-7
 def ReadChannel(channel):
@@ -51,31 +46,34 @@ def ConvertTemp(data,places):
 pot_channel  = 0
 	 
 # Define delay between readings
-delay = 30
+delay = 5
 
-# Get a time stamp
-gmtime = time.gmtime()
-current_time = time.asctime(gmtime)
+# Open file for output
+fileOp = 'a'
+fileName = 'temperatureData.json'
+outputFile = open(fileName, fileOp)
 
 # Limit the loop 	 
-for x in range(0, 5):
+for x in range(0, 3):
 	 
+    # Get a time stamp
+    gmTime = time.gmtime()
+    currentTime = time.asctime(gmTime) 
+    
 	# Read the input voltage
     level = ReadChannel(pot_channel)
     volts = ConvertVolts(level,2)
     temp = ConvertTemp(level,2)
     
     # Print out results
-    print "------------------------------------------------"
-    print("Level: {} ({}V) {}".format(level,volts,current_time))
-    print("Temp: {} ({}C) {}".format(level,temp,current_time))
+    print("Temp: {} ({}C) {}".format(level,temp,currentTime))
+    
+
+    #dataArr = [level,volts,temp,currentTime]
+    data = { 'level':level, 'volts':volts, 'temp':temp, 'time':currentTime }
     
     # Print results to file
-    fileName = 'workfile.json'
-    fileOp = 'w'
-    outputFile = open(fileName, fileOp)
-    dataArr = [level,volts,temp,current_time]
-    json.dump(dataArr, outputFile)
+    json.dump(data, outputFile)
     
     # Wait before repeating loop
     time.sleep(delay)
