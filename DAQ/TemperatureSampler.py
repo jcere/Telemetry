@@ -3,7 +3,6 @@ import time
 import os
 import json
 
-
 # Open SPI bus
 spi = spidev.SpiDev()
 spi.open(0,0)
@@ -50,7 +49,7 @@ delay = 5
 
 # Open file for output
 fileOp = 'a'
-fileName = 'temperatureData.json'
+fileName = '/home/pi/projects/sensor_output/temperatureData.json'
 outputFile = open(fileName, fileOp)
 
 # Limit the loop 	 
@@ -58,7 +57,8 @@ for x in range(0, 3):
 	 
     # Get a time stamp
     gmTime = time.gmtime()
-    currentTime = time.asctime(gmTime) 
+    strTime = time.asctime(gmTime)
+    timeStamp = time.time()
     
 	# Read the input voltage
     level = ReadChannel(pot_channel)
@@ -66,11 +66,10 @@ for x in range(0, 3):
     temp = ConvertTemp(level,2)
     
     # Print out results
-    print("Temp: {} ({}C) {}".format(level,temp,currentTime))
-    
+    print("Temp: {} ({}C) {} {}".format(level,temp,strTime,timeStamp))    
 
     #dataArr = [level,volts,temp,currentTime]
-    data = { 'level':level, 'volts':volts, 'temp':temp, 'time':currentTime }
+    data = { 'level':level, 'volts':volts, 'temp':temp, 'dateTime':strTime, 'timeStamp':timeStamp }
     
     # Print results to file
     json.dump(data, outputFile)
