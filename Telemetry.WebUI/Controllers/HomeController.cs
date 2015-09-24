@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 
-using Telemetry.WebUI.ViewModels;
+//using Telemetry.WebUI.ViewModels;
 
 
 namespace Telemetry.WebUI.Controllers
@@ -18,17 +18,11 @@ namespace Telemetry.WebUI.Controllers
             return View();
         }
 
-        public JsonResult GetData()
+        public JsonResult Get()
         {
             // TODO: request actual data from web api GET
 
-            Temp temp = new Temp(3, 4, 1);
-            temp.Data = new List<double>() 
-            { 
-                3, 6, 2, 7, 5, 2, 0, 3, 8, 9, 2, 5, 9, 3, 6, 3, 6, 2, 7, 5, 2, 1, 3, 8, 9,                                             
-                2, 5, 9, 2, 7 
-            };
-            return Json(temp, JsonRequestBehavior.AllowGet);
+            return Json("stuff", JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Plot()

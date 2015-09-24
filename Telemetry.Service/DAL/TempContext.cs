@@ -5,7 +5,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Telemetry.Service.DAL.Entities;
+using Telemetry.Service.DAL.Models;
 
 namespace Telemetry.Service.DAL
 {
@@ -21,13 +21,12 @@ namespace Telemetry.Service.DAL
         {
         }
 
-        public DbSet<Temp> Temps { get; set; }
+        public DbSet<Temperature> Temps { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             Database.SetInitializer<TempContext>(new TempDataInitializer());
         }
-
 
     }
 }
