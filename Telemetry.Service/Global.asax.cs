@@ -14,12 +14,14 @@ namespace Telemetry.Service
     {
         protected void Application_Start()
         {
-            //AreaRegistration.RegisterAllAreas();
+
+            BootStrapper.Initialize();
+            AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            BootStrapper.Initialize();
+
         }
     }
 }

@@ -29,6 +29,14 @@ namespace Telemetry.Service.Infrastructure
         }
 
         /// <summary>
+        /// close loggers
+        /// </summary>
+        public static void CloseDebugLogging()
+        {
+            log.Logger.Repository.Shutdown();
+        }
+
+        /// <summary>
         /// configure logger programmatically given a log file name, defaulting to the path 
         /// (executing assembly)\logs
         /// </summary>
@@ -88,18 +96,37 @@ namespace Telemetry.Service.Infrastructure
         }
 
         /// <summary>
-        /// display the error log to a simple pop up window
+        /// if there are error events logged in the memory appender display in the error dialogue 
         /// </summary>
-        public static void DisplayErrorLog()
+        /// <param name="clearAfter">if true clear on completion</param>
+        public static void DisplayErrorLog(bool clearAfter = false)
         {
             Hierarchy hierarchy = log4net.LogManager.GetRepository() as Hierarchy;
             MemoryAppender mappender = hierarchy.Root.GetAppender("MemoryAppender") as MemoryAppender;
 
-            var errors = mappender.GetEvents().ToList();
-            if (errors != null && errors.Count > 0)
+            if (mappender != null)
             {
-                //ErrorDialogue errWin = new ErrorDialogue(errors);
-                //errWin.ShowDialog();
+                var errors = mappender.GetEvents().ToList();
+                if (errors != null && errors.Count > 0)
+                {
+                    // TODO: output errors to web page
+                    //ErrorDialogue errWin = new ErrorDialogue(errors);
+                    //errWin.ShowDialog();
+                }
+                if (clearAfter == true) ClearMemoryAppender();
+            }
+        }
+
+        /// <summary>
+        /// if memory appender active, clear errors
+        /// </summary>
+        public static void ClearMemoryAppender()
+        {
+            Hierarchy hierarchy = log4net.LogManager.GetRepository() as Hierarchy;
+            MemoryAppender mappender = hierarchy.Root.GetAppender("MemoryAppender") as MemoryAppender;
+            if (mappender != null)
+            {
+                mappender.Clear();
             }
         }
 

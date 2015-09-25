@@ -10,6 +10,7 @@ namespace Telemetry.Service.Infrastructure
         public static void Initialize()
         {
             Logger.StartDebugLogging("TelemetryService");
+            // TODO: load ioc container
         }
     }
 }
