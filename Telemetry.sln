@@ -9,7 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telemetry.Service", "Teleme
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2926CB46-991A-4150-9FB0-30AED533E661}"
 	ProjectSection(SolutionItems) = preProject
+		DAQ\CreateDatabase.py = DAQ\CreateDatabase.py
 		DAQ\TemperatureSampler.py = DAQ\TemperatureSampler.py
+		DAQ\TestInsert.py = DAQ\TestInsert.py
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telemetry.Service.Tests", "Telemetry.Service.Tests\Telemetry.Service.Tests.csproj", "{7B1B677A-145E-4953-83E6-55B876BC1003}"
