@@ -4,7 +4,7 @@ import sys
 import time
 
 # Open db connection
-sqlite_file = 'E:\Temp\sqlite1.db'
+sqlite_file = '/home/pi/projects/sqlite1.db'
 conn = sqlite3.connect(sqlite_file)
 cur = conn.cursor()
 

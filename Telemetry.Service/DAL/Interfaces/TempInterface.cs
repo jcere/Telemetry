@@ -9,7 +9,6 @@ namespace Telemetry.Service.DAL.Interfaces
 {
     public interface ITempRepo
     {
-
         List<Temperature> GetData();
     }
 }

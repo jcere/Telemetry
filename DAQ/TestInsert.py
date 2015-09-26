@@ -17,15 +17,15 @@ strTime = time.asctime(gmTime)
 timeStamp = time.time()
 
 # Read the input voltage
-level = 15
-volts = 16
-temp = 17
+level = 17
+volts = 18
+temp = 19
 
 # Define delay between readings
 delay = 2
 
 # Open db connection
-sqlite_file = 'E:\Temp\sqlite1.db'
+sqlite_file = '/home/pi/projects/sqlite1.db'
 table_name = 'Temperatures'
 conn = sqlite3.connect(sqlite_file)
 c = conn.cursor()

@@ -27,13 +27,13 @@ namespace Telemetry.Service.Models
 
     public class TempSample
     {
-        public TempSample(int time, double tempC)
+        public TempSample(double time, double tempC)
         {
             Time = time;
             TempC = tempC;
         }
 
-        public int Time { get; set; }
+        public double Time { get; set; }
         public double TempC { get; set; }
 
     }

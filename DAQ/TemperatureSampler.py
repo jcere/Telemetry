@@ -58,7 +58,7 @@ volt_col = 'Volt'
 tempc_col = 'TempC'
 
 # Open db connection
-sqlite_file = '/home/pi/projects/telemetry/sqlite1.db'
+sqlite_file = '/home/pi/projects/sqlite1.db'
 table_name = 'Temperatures'
 conn = sqlite3.connect(sqlite_file)
 c = conn.cursor()
@@ -85,8 +85,11 @@ print(sql_string)
 
 try:
     c.execute(sql_string)
+    print("execute")
     conn.commit()
+    print("commit")
     conn.close()
+    print("closed")
 except: # catch *all* exceptions
     e = sys.exc_info()[0]
     print("Error:{msg}".format(msg=e))
