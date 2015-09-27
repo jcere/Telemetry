@@ -29,19 +29,17 @@ namespace Telemetry.Service.DAL.Managers
         // extract all temperature data
         public List<Temperature> GetData()
         {
-            List<Temperature> collected = null;
-            try
-            {
-                collected = db.Temps.ToList();
-            }
-            catch (Exception ex)
-            {
-                log.Debug(ex);
-            }
-            return collected;
+            return db.Temps.ToList();
         }
 
         // extract temperature data in given window
+        public List<Temperature> GetSpan(double time, double span)
+        {
+            double upper = time + span / 2.0;
+            double lower = time - span / 2.0;
+            var filtered = db.Temps.Where(s => s.Time < upper).Where(s => s.Time > lower);
+            return filtered.ToList();
+        }
 
 
         // convert to fahrenheit

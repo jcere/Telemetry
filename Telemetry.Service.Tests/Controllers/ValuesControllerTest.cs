@@ -16,8 +16,10 @@ namespace Telemetry.WebUI.Tests.Controllers
             var temperatures = controller.Get();
 
             Assert.IsNotNull(temperatures);
+            Service.Models.TempViewModel model = temperatures.Data as Service.Models.TempViewModel;
+
             // local db only has 4 samples
-            Assert.AreEqual(temperatures.Data.Count, 4);                                                                                   
+            Assert.AreEqual(model.Data.Count, 4);                                                                                   
         }
 
         [TestMethod]
@@ -27,15 +29,17 @@ namespace Telemetry.WebUI.Tests.Controllers
             var temperatures = controller.Get();
 
             Assert.IsNotNull(temperatures);
+            Service.Models.TempViewModel model = temperatures.Data as Service.Models.TempViewModel;
+
             // local db only has 4 samples
-            Assert.AreNotEqual(temperatures.Data.Count, 4);
+            Assert.AreNotEqual(model.Data.Count, 4);
         }
 
         [TestMethod]
         public void GetAllDataInJSON()
         {
             var controller = new ValuesController();
-            JsonResult jsonResult = controller.GetJson();
+            JsonResult jsonResult = controller.Get();
             Assert.IsNotNull(jsonResult);
 
             Service.Models.TempViewModel model = jsonResult.Data as Service.Models.TempViewModel;

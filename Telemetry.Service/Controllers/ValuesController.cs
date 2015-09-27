@@ -17,39 +17,22 @@ namespace Telemetry.Service.Controllers
 
         public ValuesController()
         {
-            model = new Models.TempViewModel();
             temp = new DAL.Managers.TempRepo();
         }
 
         // GET api/<controller>
-        public Models.TempViewModel Get()
+        public JsonResult Get()
         {
-            model = new Models.TempViewModel();
-            var data = temp.GetData();
-            foreach (var item in data)
-            {
-                model.Data.Add(new Models.TempSample(item.Time, item.TempC));
-            }
-            return model;
-        }
-
-        public JsonResult GetJson()
-        {
-            // TODO: request actual data from web api GET
-            model = new Models.TempViewModel();
-            var data = temp.GetData();
-            foreach (var item in data)
-            {
-                model.Data.Add(new Models.TempSample(item.Time, item.TempC));
-            }
-            JsonResult res = new JsonResult();
-            res.Data = model;
+            model = new Models.TempViewModel(temp.GetData());
+            MyJsonResult res = new MyJsonResult(model);
             return res;
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
+        // GET api/<controller>/<time>:<span>
+        public string Get(double time, double span)
         {
+            model = new Models.TempViewModel(temp.GetSpan(time, span));
+            MyJsonResult res = new MyJsonResult(model);
             return "value";
         }
 
@@ -67,5 +50,27 @@ namespace Telemetry.Service.Controllers
         public void Delete(int id)
         {
         }
+
+        public class MyJsonResult : JsonResult
+        {
+            public MyJsonResult(object data)
+            {
+                this.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+                this.Data = data;
+            }
+        }
     }
 }
+
+
+// GET api/<controller>
+//public Models.TempViewModel GetModel()
+//{
+//    model = new Models.TempViewModel();
+//    var data = temp.GetData();
+//    foreach (var item in data)
+//    {
+//        model.Data.Add(new Models.TempSample(item.Time, item.TempC));
+//    }
+//    return model;
+//}

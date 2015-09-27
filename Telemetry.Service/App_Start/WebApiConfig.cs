@@ -19,6 +19,8 @@ namespace Telemetry.Service
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            // TODO: route with time and span arguments
         }
     }
 }
