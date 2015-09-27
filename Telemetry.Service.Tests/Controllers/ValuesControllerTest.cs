@@ -10,11 +10,25 @@ namespace Telemetry.WebUI.Tests.Controllers
     public class ValuesControllerTest
     {
         [TestMethod]
-        public void GetTempDataFromDB()
+        public void GetTempDataFromLocalDB()
         {
             var controller = new ValuesController();
             var temperatures = controller.Get();
-            Assert.IsNotNull(temperatures);                                                                                    
+
+            Assert.IsNotNull(temperatures);
+            // local db only has 4 samples
+            Assert.AreEqual(temperatures.Data.Count, 4);                                                                                   
+        }
+
+        [TestMethod]
+        public void GetTempDataFromRemoteDB()
+        {
+            var controller = new ValuesController();
+            var temperatures = controller.Get();
+
+            Assert.IsNotNull(temperatures);
+            // local db only has 4 samples
+            Assert.AreNotEqual(temperatures.Data.Count, 4);
         }
 
         [TestMethod]

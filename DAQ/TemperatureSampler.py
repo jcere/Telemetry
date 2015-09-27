@@ -9,6 +9,8 @@ import sys
 spi = spidev.SpiDev()
 spi.open(0,0)
 
+vMax = 1.25 # full scale voltage in mv
+vRef = 3.30
 # Function to read SPI data from MCP3008 chip
 # Channel must be an integer 0-7
 def ReadChannel(channel):
@@ -19,27 +21,26 @@ def ReadChannel(channel):
 # Function to convert data to voltage level,
 # rounded to specified number of decimal places.
 def ConvertVolts(data,places):
-    volts = (data * 3.3) / float(1023)
+    volts = (data * vRef) / float(1023)
     volts = round(volts,places)
     return volts
 
 # Function to calculate temperature from
-# TMP36 data, rounded to specified
+# TMP35 data, rounded to specified
 # number of decimal places.
 def ConvertTemp(data,places):
 	 
-	# ADC Value
+	# ADC Value (need to apply ref voltage for TMP35 if we want full 
+        # scale, highest res)
 	# (approx)  Temp  Volts
-	#    0      -50    0.00
-	#   78      -25    0.25
-	#  155        0    0.50
-	#  233       25    0.75
-	#  310       50    1.00
-	#  465      100    1.50
-	#  775      200    2.50
-	# 1023      280    3.30
+	#  0          0    0.00
+	#  79        25    0.25
+	#  157       50    0.50
+	#  236       75    0.75
+	#  315      100    1.00
+	#  393      125    1.25
 	 
-	temp = ((data * 330)/float(1023))-50
+	temp = ((data * vRef)/float(1023))*100 
 	temp = round(temp,places)
 	return temp
 	 
@@ -70,7 +71,7 @@ timeStamp = time.time()
 
 # Read the input voltage
 level = ReadChannel(pot_channel)
-volts = ConvertVolts(level,2)
+volts = ConvertVolts(level,3)
 temp = ConvertTemp(level,2)
     
 # Create output sql string
@@ -81,15 +82,11 @@ sql_values = "VALUES ({tc}, '{dc}', {lc}, {vc}, {tmp})".\
         format(tc=timeStamp, dc=strTime, lc=level, vc=volts, tmp=temp)
         
 sql_string = sql_insert + sql_values
-print(sql_string)
 
 try:
     c.execute(sql_string)
-    print("execute")
     conn.commit()
-    print("commit")
     conn.close()
-    print("closed")
 except: # catch *all* exceptions
     e = sys.exc_info()[0]
     print("Error:{msg}".format(msg=e))
