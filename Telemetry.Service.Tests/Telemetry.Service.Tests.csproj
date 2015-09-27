@@ -114,7 +114,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\ValuesControllerTest.cs" />
+    <Compile Include="Controllers\TempControllerTest.cs" />
     <Compile Include="Infrastructure\LoggerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

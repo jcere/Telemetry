@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Telemetry.Service.DAL.Models;
 
-namespace Telemetry.Service.Models
+namespace Telemetry.Service.ViewModels
 {
     /// <summary>
     /// temperature data presentation view model
@@ -17,7 +17,7 @@ namespace Telemetry.Service.Models
             this.Data = new List<TempSample>();
             foreach (var item in collection)
             {
-                this.Data.Add(new Models.TempSample(item.Time, item.TempC));
+                this.Data.Add(new TempSample(item.Time, item.TempC));
             }
         }
 

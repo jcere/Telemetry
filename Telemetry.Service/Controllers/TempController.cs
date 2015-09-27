@@ -6,16 +6,17 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Mvc;
 using Telemetry.Service.DAL.Interfaces;
+using Telemetry.Service.ViewModels;
 
 namespace Telemetry.Service.Controllers
 {
-    public class ValuesController : ApiController
+    public class TempController : ApiController
     {
 
-        private Models.TempViewModel model;
+        private TempViewModel model;
         private ITempRepo temp;
 
-        public ValuesController()
+        public TempController()
         {
             temp = new DAL.Managers.TempRepo();
         }
@@ -23,17 +24,15 @@ namespace Telemetry.Service.Controllers
         // GET api/<controller>
         public JsonResult Get()
         {
-            model = new Models.TempViewModel(temp.GetData());
-            MyJsonResult res = new MyJsonResult(model);
-            return res;
+            model = new TempViewModel(temp.GetData());
+            return GetJsonResult(model);
         }
 
         // GET api/<controller>/<time>:<span>
-        public string Get(double time, double span)
+        public JsonResult Get(double time, double span)
         {
-            model = new Models.TempViewModel(temp.GetSpan(time, span));
-            MyJsonResult res = new MyJsonResult(model);
-            return "value";
+            model = new TempViewModel(temp.GetSpan(time, span));
+            return GetJsonResult(model);
         }
 
         // POST api/<controller>
@@ -51,14 +50,15 @@ namespace Telemetry.Service.Controllers
         {
         }
 
-        public class MyJsonResult : JsonResult
+        private JsonResult GetJsonResult(TempViewModel model)
         {
-            public MyJsonResult(object data)
-            {
-                this.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-                this.Data = data;
-            }
+
+            JsonResult res = new JsonResult();
+            res.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            res.Data = model;
+            return res;
         }
+
     }
 }
 

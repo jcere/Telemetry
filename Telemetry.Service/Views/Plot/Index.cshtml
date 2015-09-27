@@ -1,63 +1,86 @@
-﻿@model 
-
+﻿
 @{
-    ViewBag.Title = "View";
+    ViewBag.Title = "Plot";
 }
+
+<h2>Plot</h2>
 
 <script>
 
     $(document).ready(function () {
-
         $('#btnGetData').click(function () {
             $.ajax({
                 type: 'GET',
-                url: '@(Url.Action("GetData", "Home"))',
-                success: function (data) {                   
-                    plotFunction(data);
+                url: '@Url.RouteUrl("ActionApi", new { httproute = "", controller = "Temp" })',
+                success: function (data) {
+                    plotFunction1(data);
                 },
                 dataType: "json"
             });
         });
     });
 
-    function plotFunction(myData) {
+    function plotFunction1(jsonObj) {
 
-        //console.log("function is run");
+        var tempData = jsonObj.Data.Data;
+        // jQuery.map:
+        var y = tempData.map(function (v) {
+            return v.TempC;
+        });
 
-        var lineData = myData.Data;
-        var freq = myData.Frequency;
-        var span = lineData.length;
-        var start = myData.Start;
-        //console.log(lineData);
+        var x = tempData.map(function (v) {
+            return v.DateTime;
+        });
+
+        var myLineChart = new Chart(ctx).Line(data, options);
+
+        var data = {
+            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            datasets: [
+                {
+                    label: "My First dataset",
+                    fillColor: "rgba(220,220,220,0.2)",
+                    strokeColor: "rgba(220,220,220,1)",
+                    pointColor: "rgba(220,220,220,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: [65, 59, 80, 81, 56, 55, 40]
+                }
+            ]
+        };
+    }
+
+
+    function plotFunction(jsonObj) {
+
+        var tempData = jsonObj.Data.Data;
 
         // define dimensions of graph
         var m = [80, 80, 80, 80]; // margins
         var w = 1000 - m[1] - m[3]; // width
         var h = 400 - m[0] - m[2]; // height
 
-        // create a simple data array that we'll plot with a line (this array represents only the Y values, X will just be the index location)
-        var data = lineData;
+        // create a simple data array that we'll plot with a line (this array represents only the Y values, 
+        // X will just be the index location) jQuery.map:
+        var data = tempData.map(function (v) {
+            return v.TempC;
+        });
 
         // X scale will fit all values from data[] within pixels 0-w
         var x = d3.scale.linear().domain([0, data.length]).range([0, w]);
         // Y scale will fit values from 0-10 within pixels h-0 (Note the inverted domain for the y-scale: bigger is up!)
-        var y = d3.scale.linear().domain([0, 10]).range([h, 0]);
-        // automatically determining max range can work something like this
-        // var y = d3.scale.linear().domain([0, d3.max(data)]).range([h, 0]);
+        var y = d3.scale.linear().domain([10, 125]).range([h, 0]);
 
         // create a line function that can convert data[] into x and y points
         var line = d3.svg.line()
 			// assign the X function to plot our line as we wish
 			.x(function (d, i) {
-			    // verbose logging to show what's actually being done
-			    //console.log('Plotting X value for data point: ' + d + ' using index: ' + i + ' to be at: ' + x(i) + ' using our xScale.');
-			    // return the X coordinate where we want to plot this datapoint
+			    // return the X coordinate where we want to plot this datapoint     
 			    return x(i);
 			})
 			.y(function (d) {
-			    // verbose logging to show what's actually being done
-			    //console.log('Plotting Y value for data point: ' + d + ' to be at: ' + y(d) + " using our yScale.");
-			    // return the Y coordinate where we want to plot this datapoint
+                // return the Y coordinate where we want to plot this datapoint
 			    return y(d);
 			})
 
@@ -89,18 +112,14 @@
         // do this AFTER the axes above so that the line is above the tick-lines
         graph.append("svg:path").attr("d", line(data));
 
-        return svg;
+        // automatically determining max range can work something like this
+        // var y = d3.scale.linear().domain([0, d3.max(data)]).range([h, 0]);
     };
 
 </script>
+<div id="output">
+</div>
+<p>
+    <input id="btnGetData" type="button" value="Get Data" />
+</p>
 
-<h2>View</h2>
-
-    <div id="output">
-
-    </div>
-
-    <p>
-        <input id="btnGetData" type="button" value="Get Data" />
-        @Html.ActionLink("Back", "Index")
-    </p>
