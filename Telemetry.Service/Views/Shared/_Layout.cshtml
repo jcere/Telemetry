@@ -6,9 +6,10 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/d3")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/chartJs")
     @RenderSection("scripts", required: false)
 </head>
 <body>
@@ -35,7 +36,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Telemetry</p>
         </footer>
     </div>
 </body>

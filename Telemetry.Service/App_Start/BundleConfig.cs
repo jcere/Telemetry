@@ -11,6 +11,9 @@ namespace Telemetry.Service
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                 "~/Scripts/jquery-{version}.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/chartJs").Include(
+                "~/Scripts/Chart.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/d3").Include(
                 "~/Scripts/d3/d3.js"));
 
