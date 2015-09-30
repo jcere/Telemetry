@@ -7,15 +7,6 @@ This will give me a chance to investigate some features of (and gain some practi
 
 Because I like data.
 
-## The Plan ##
+## The Setup ##
 
-First, to collect the data using my Raspberry Pi and make it available on my network. Second, the data will be read by a telemetry service and stored using MS SQLServer, ASP.NET MVC/WebAPI, and Entity Framework. The third device in the chain will be a web API (using the service) that will provide querying and filtering capabilities and reply to requests providing the data as JSON. Finally, I will use a fairly simple web page as the front end (to provide pretty plots) using JavaScript and the D3.js library.
-
-That's the plan anyway.
-
-## In Progress ##
-
-Some experimenting with manipulating the GPIO pins on RPi
-A simple web page for displaying data
-A service created with the ASP.NET WebAPI scaffolding
-Several blog posts that I will (try) to continually update as I go (iterative blogging, is that a thing?)
+I have created a data acquisition module using a Raspberry Pi writing to a SQLite database. The database is available on my home network and is connected to a telemetry service built using ASP.NET MVC/WebAPI, and Entity Framework. To view my data I have also built a simple web page using the default ASP views combined with a JavaScript library called Chart.Js.
