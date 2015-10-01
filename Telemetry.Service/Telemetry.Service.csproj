@@ -194,7 +194,6 @@
     <Compile Include="DAL\Interfaces\TempInterface.cs" />
     <Compile Include="DAL\Managers\TempRepo.cs" />
     <Compile Include="DAL\TempContext.cs" />
-    <Compile Include="DAL\TempDataInitializer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

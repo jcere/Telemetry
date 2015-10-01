@@ -29,9 +29,9 @@ namespace Telemetry.Service.Controllers
         }
 
         // GET api/<controller>/<time>:<span>
-        public JsonResult Get(double time, double span)
+        public JsonResult Get(double time, int numSamples)
         {
-            model = new TempViewModel(temp.GetSpan(time, span));
+            model = new TempViewModel(temp.GetSamplesFrom(time, numSamples));
             return GetJsonResult(model);
         }
 

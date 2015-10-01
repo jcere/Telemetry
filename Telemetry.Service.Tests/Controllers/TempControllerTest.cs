@@ -52,12 +52,12 @@ namespace Telemetry.WebUI.Tests.Controllers
         {
             var controller = new TempController();
             // taking 5 hour span - time in seconds - +/- 2.5 = 5 samples
-            JsonResult jsonResult = controller.Get(1443250801.95, 18000.0);
+            JsonResult jsonResult = controller.Get(1443250801.95, 24);
             Assert.IsNotNull(jsonResult);
 
             TempViewModel model = jsonResult.Data as TempViewModel;
             Assert.IsNotNull(model);
-            Assert.AreEqual(model.Data.Count, 5);
+            Assert.AreEqual(model.Data.Count, 24);
         }
     }
 }

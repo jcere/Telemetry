@@ -16,21 +16,12 @@ namespace Telemetry.Service.DAL
             .GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
 
-        public TempContext()
-            : base()
-        {
-            bool dbExists = this.Database.Exists();
-            if(!dbExists)
-            {
-                log.Debug("no connection to db");
-            }
-        }
+        public TempContext() : base() { }
 
         public DbSet<Temperature> Temps { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            // Database.SetInitializer<TempContext>(new TempDataInitializer());
             // Database does not pluralize table names
             // modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
@@ -39,6 +30,9 @@ namespace Telemetry.Service.DAL
 
     public class MyDbConfiguration : DbConfiguration
     {
+        /// <summary>
+        /// my db configuration from web.config
+        /// </summary>
         public MyDbConfiguration()
         {
             SetDefaultConnectionFactory(new SqlConnectionFactory("name=TempContext"));

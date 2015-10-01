@@ -20,8 +20,8 @@ namespace Telemetry.Service.Infrastructure
         {
             // TODO: use ioc container
             // Add registration logic here
-            var myAssemblies = 
-                AppDomain.CurrentDomain.GetAssemblies().Where(a => a.FullName.StartsWith("Telemetry")).ToArray();
+            var myAssemblies = AppDomain
+                .CurrentDomain.GetAssemblies().Where(a => a.FullName.StartsWith("Telemetry")).ToArray();
 
             //container.RegisterTypes(
             //     UnityHelpers.GetTypesWithCustomAttribute<LifecycleSingletonAttribute>(myAssemblies),

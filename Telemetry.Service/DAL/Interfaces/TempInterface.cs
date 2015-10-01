@@ -14,12 +14,13 @@ namespace Telemetry.Service.DAL.Interfaces
         /// </summary>
         /// <returns>list of temperature records</returns>
         List<Temperature> GetData();
+
         /// <summary>
-        /// retrieve temperature data given span of time and center point
+        /// extract given number of samples starting at time
         /// </summary>
-        /// <param name="time">midpoint time</param>
-        /// <param name="span">length of time window</param>
+        /// <param name="time">beginning or period of interest</param>
+        /// <param name="samples">number of samples</param>
         /// <returns>list of temperature records</returns>
-        List<Temperature> GetSpan(double time, double span);
+        List<Temperature> GetSamplesFrom(double time, int samples);
     }
 }

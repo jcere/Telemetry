@@ -32,18 +32,22 @@ namespace Telemetry.Service.DAL.Managers
             return db.Temps.ToList();
         }
 
-        // extract temperature data in given window
-        public List<Temperature> GetSpan(double time, double span)
+        // extract given number of samples starting at time
+        public List<Temperature> GetSamplesFrom(double time, int samples)
         {
-            double upper = time + span / 2.0;
-            double lower = time - span / 2.0;
-            var filtered = db.Temps.Where(s => s.Time < upper).Where(s => s.Time > lower);
+            int plusMinus = samples / 2;
+            var filtered = db
+                .Temps.Where(s => s.Time > time).OrderBy(s => s.Time).Take(samples);
             return filtered.ToList();
         }
 
+        // TODO: data validation - find gaps
+
 
         // convert to fahrenheit
-        // TODO: what else would we want to see?
+
+
+        // TODO: what other sorts of reports would we like to see?
     }
 
 
