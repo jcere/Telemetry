@@ -14,24 +14,24 @@ namespace Telemetry.Service.Controllers
     {
 
         private TempViewModel model;
-        private ITempRepo temp;
+        private IDataInterface tempRepo;
 
-        public TempController()
+        public TempController(IDataInterface tempRepo)
         {
-            temp = new DAL.Managers.TempRepo();
+            this.tempRepo = tempRepo;
         }
 
         // GET api/<controller>
         public JsonResult Get()
         {
-            model = new TempViewModel(temp.GetData());
+            model = new TempViewModel(tempRepo.GetData());
             return GetJsonResult(model);
         }
 
         // GET api/<controller>/<time>:<span>
         public JsonResult Get(double time, int numSamples)
         {
-            model = new TempViewModel(temp.GetSamplesFrom(time, numSamples));
+            model = new TempViewModel(tempRepo.GetSamplesFrom(time, numSamples));
             return GetJsonResult(model);
         }
 

@@ -13,7 +13,7 @@ namespace Telemetry.Service.DAL.Managers
     /// <summary>
     /// process temperature data, conversions, formating, queries with time windows
     /// </summary>
-    public class TempRepo : ITempRepo
+    public class TempRepository : IDataInterface
     {
         // interface for debug logging
         public static readonly log4net.ILog log = log4net.LogManager
@@ -21,7 +21,7 @@ namespace Telemetry.Service.DAL.Managers
 
         private TempContext db;
 
-        public TempRepo()
+        public TempRepository()
         {
             db = new TempContext();
         }
