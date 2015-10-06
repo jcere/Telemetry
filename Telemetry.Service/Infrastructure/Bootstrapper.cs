@@ -1,10 +1,7 @@
 ﻿using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Telemetry.Service.Controllers;
-using Telemetry.Service.DAL;
+using System.Web.Http;
 using Telemetry.Service.DAL.Interfaces;
 using Telemetry.Service.DAL.Managers;
 
@@ -12,23 +9,38 @@ namespace Telemetry.Service.Infrastructure
 {
     public class BootStrapper
     {
-        public static UnityContainer Container;
+        /// <summary>
+        /// container is available for tests 
+        /// </summary>
+        public static IUnityContainer Container;
 
         public static void Initialize()
         {
+
             Logger.StartDebugLogging("TelemetryService");
-            Container = new UnityContainer();
-            BootStrapper.RegisterTypes(Container);
+
+            // start dependency injection
+            Container = BuildUnityContainer();
+            GlobalConfiguration.Configuration.DependencyResolver = new UnityResolver(Container);
         }
 
-        public static void RegisterTypes(IUnityContainer container)
+        /// <summary>
+        /// build container and complete registering components
+        /// </summary>
+        /// <returns>container interface</returns>
+        private static IUnityContainer BuildUnityContainer()
         {
+            var container = new UnityContainer();
+
             // Add ioc registration logic
             var myAssemblies = AppDomain
                 .CurrentDomain
                 .GetAssemblies().Where(a => a.FullName.StartsWith("Telemetry")).ToArray();
 
+            // it is not necessary to register controllers
             container.RegisterType<IDataInterface, TempRepository>();
+
+            return container;
         }
     }
 }

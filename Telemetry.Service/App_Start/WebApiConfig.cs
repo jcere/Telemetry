@@ -22,11 +22,10 @@ namespace Telemetry.Service
 
             config.Routes.MapHttpRoute(
                 name: "ActionApi",
-                routeTemplate: "api/{controller}/{action}/{id}",
-                defaults: new { controller = "plot", action="get", id = RouteParameter.Optional }
+                routeTemplate: "api/{controller}/{action}",
+                defaults: new { controller = "plot", action="get" }
             );
 
-            // TODO: route with time and span arguments
         }
     }
 }

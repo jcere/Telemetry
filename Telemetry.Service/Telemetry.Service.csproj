@@ -33,6 +33,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -190,6 +192,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PlotController.cs" />
     <Compile Include="Controllers\TempController.cs" />
+    <Compile Include="DAL\Interfaces\ITimeDomainContext.cs" />
     <Compile Include="DAL\Models\Temperature.cs" />
     <Compile Include="DAL\Interfaces\DataInterface.cs" />
     <Compile Include="DAL\Managers\TempRepo.cs" />
@@ -198,6 +201,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Bootstrapper.cs" />
+    <Compile Include="Infrastructure\UnityResolver.cs" />
     <Compile Include="Infrastructure\Logger.cs" />
     <Compile Include="ViewModels\TempViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

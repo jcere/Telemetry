@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SQLite;
 using Telemetry.Service.DAL.Models;
 using Telemetry.Service.DAL.Interfaces;
 
@@ -19,33 +15,34 @@ namespace Telemetry.Service.DAL.Managers
         public static readonly log4net.ILog log = log4net.LogManager
             .GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private TempContext db;
+        private ITimeDomainContext db;
 
         public TempRepository()
         {
-            db = new TempContext();
+            this.db = new TempContext();
         }
 
-        // extract all temperature data
+        /// <summary>
+        /// extract all data fron db temp table
+        /// </summary>
         public List<Temperature> GetData()
         {
             return db.Temps.ToList();
         }
 
-        // extract given number of samples starting at time
+        /// <summary>
+        ///  extract given number of samples starting at time
+        /// </summary>
         public List<Temperature> GetSamplesFrom(double time, int samples)
         {
-            int plusMinus = samples / 2;
+            // get data for period following time, return num samples following
             var filtered = db
                 .Temps.Where(s => s.Time > time).OrderBy(s => s.Time).Take(samples);
+
             return filtered.ToList();
         }
 
-        // TODO: data validation - find gaps
-
-
-        // convert to fahrenheit
-
+        // TODO: data validation - check for gaps, check for noise
 
         // TODO: what other sorts of reports would we like to see?
     }

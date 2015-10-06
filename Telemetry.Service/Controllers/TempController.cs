@@ -10,28 +10,45 @@ using Telemetry.Service.ViewModels;
 
 namespace Telemetry.Service.Controllers
 {
+    /// <summary>
+    /// temperature data controller
+    /// </summary>
     public class TempController : ApiController
     {
 
         private TempViewModel model;
         private IDataInterface tempRepo;
 
+        /// <summary>
+        /// public constructor for temperature data 
+        /// </summary>
+        /// <param name="tempRepo">accepts temperature repository</param>
         public TempController(IDataInterface tempRepo)
         {
             this.tempRepo = tempRepo;
         }
 
         // GET api/<controller>
+        /// <summary>
+        /// simple get all data from temperature table
+        /// </summary>
+        /// <returns>JsonResult containing view model</returns>
         public JsonResult Get()
         {
             model = new TempViewModel(tempRepo.GetData());
             return GetJsonResult(model);
         }
 
-        // GET api/<controller>/<time>:<span>
-        public JsonResult Get(double time, int numSamples)
+        // GET api/<controller>?<time=''>&<span=''>
+        /// <summary>
+        /// get temperature data starting at time and continuing for a number of samples
+        /// </summary>
+        /// <param name="time">time in seconds</param>
+        /// <param name="samples">number of samples</param>
+        /// <returns>JsonResult containing view model</returns>
+        public JsonResult Get(double time, int samples)
         {
-            model = new TempViewModel(tempRepo.GetSamplesFrom(time, numSamples));
+            model = new TempViewModel(tempRepo.GetSamplesFrom(time, samples));
             return GetJsonResult(model);
         }
 
@@ -61,16 +78,3 @@ namespace Telemetry.Service.Controllers
 
     }
 }
-
-
-// GET api/<controller>
-//public Models.TempViewModel GetModel()
-//{
-//    model = new Models.TempViewModel();
-//    var data = temp.GetData();
-//    foreach (var item in data)
-//    {
-//        model.Data.Add(new Models.TempSample(item.Time, item.TempC));
-//    }
-//    return model;
-//}

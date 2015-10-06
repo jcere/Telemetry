@@ -9,7 +9,7 @@ namespace Telemetry.Service.DAL
     /// <summary>
     /// database context for temperature data
     /// </summary>
-    public class TempContext : DbContext
+    public class TempContext : DbContext, ITimeDomainContext
     {
         // interface for debug logging
         public static readonly log4net.ILog log = log4net.LogManager

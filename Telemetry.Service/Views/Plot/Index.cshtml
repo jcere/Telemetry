@@ -17,14 +17,14 @@
                 type: 'GET',
                 url: '@Url.RouteUrl("ActionApi", new { httproute = "", controller = "Temp" })',
                 success: function (data) {
-                    plotFunction1(data);
+                    plotFunction(data);
                 },
                 dataType: "json"
             });
         });
     });
 
-    function plotFunction1(jsonObj) {
+    function plotFunction(jsonObj) {
 
         var ctx = document.getElementById("myChart").getContext("2d");
         var tempData = jsonObj.Data.Data;
@@ -86,7 +86,7 @@
             scaleFontColor: "#666",
 
             // Boolean - whether or not the chart should be responsive and resize when the browser does.
-            responsive: true,
+            responsive: false,
 
             // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
             maintainAspectRatio: true,
