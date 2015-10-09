@@ -53,8 +53,8 @@ namespace Telemetry.Service.Infrastructure
             roller.AppendToFile = true;
             roller.File = System.IO.Path.Combine(addInPath + "\\logs", logFileName + ".log");
             roller.Layout = patternLayout;
-            roller.MaxSizeRollBackups = 2;
-            roller.MaximumFileSize = "200KB";
+            roller.MaxSizeRollBackups = 3;
+            roller.MaximumFileSize = "550KB";
             roller.RollingStyle = RollingFileAppender.RollingMode.Size;
             roller.StaticLogFileName = true;
             roller.DatePattern = "yyyy-MM-dd-HH:mm";

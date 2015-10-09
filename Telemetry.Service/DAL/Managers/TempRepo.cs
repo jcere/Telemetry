@@ -42,6 +42,22 @@ namespace Telemetry.Service.DAL.Managers
             return filtered.ToList();
         }
 
+        public List<Temperature> GetSamplesFromSpan(double time, double span, int period)
+        {
+            List<Temperature> data = new List<Temperature>();
+            // get data for period following time, return num samples following
+            var filtered = db.Temps
+                .Where(s => s.Time > time)
+                .Where(s => s.Time <= (time + span))
+                .OrderBy(s => s.Time).ToList();
+
+            for (int i = 0; i < filtered.Count(); i += period)
+            {
+                data.Add(filtered[i]);
+            }
+            return data;
+        }
+
         // TODO: data validation - check for gaps, check for noise
 
         // TODO: what other sorts of reports would we like to see?

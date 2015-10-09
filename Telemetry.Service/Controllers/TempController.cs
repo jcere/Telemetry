@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Mvc;
 using Telemetry.Service.DAL.Interfaces;
+using Telemetry.Service.DAL.Models;
 using Telemetry.Service.ViewModels;
 
 namespace Telemetry.Service.Controllers
@@ -35,7 +36,8 @@ namespace Telemetry.Service.Controllers
         /// <returns>JsonResult containing view model</returns>
         public JsonResult Get()
         {
-            model = new TempViewModel(tempRepo.GetData());
+            var data = tempRepo.GetData();
+            model = new TempViewModel(data);
             return GetJsonResult(model);
         }
 
@@ -48,7 +50,22 @@ namespace Telemetry.Service.Controllers
         /// <returns>JsonResult containing view model</returns>
         public JsonResult Get(double time, int samples)
         {
-            model = new TempViewModel(tempRepo.GetSamplesFrom(time, samples));
+            var data = tempRepo.GetSamplesFrom(time, samples);
+            model = new TempViewModel(data);
+            return GetJsonResult(model);
+        }
+
+        /// <summary>
+        /// get temperature data starting at time and continuing for span with given period
+        /// </summary>
+        /// <param name="time">time in seconds</param>
+        /// <param name="span">length of span in seconds</param>
+        /// <param name="period"></param>
+        /// <returns>JsonResult containing view model</returns>
+        public JsonResult Get(double time, double span, int period)
+        {
+            var data = tempRepo.GetSamplesFromSpan(time, span, period);
+            model = new TempViewModel(data);
             return GetJsonResult(model);
         }
 

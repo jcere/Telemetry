@@ -1,7 +1,6 @@
 ﻿import spidev
 import time
 import os
-import json
 import sqlite3
 import sys
 
@@ -74,7 +73,7 @@ level = ReadChannel(pot_channel)
 volts = ConvertVolts(level,3)
 temp = ConvertTemp(level,2)
     
-# Create output sql string
+# Create output sql strings
 sql_insert = "INSERT INTO {tn} ({tc}, {dc}, {lc}, {vc}, {tmp}) ".\
         format(tn=table_name, tc=time_col, dc=date_col, lc=level_col, vc=volt_col, tmp=tempc_col)
         
@@ -83,6 +82,7 @@ sql_values = "VALUES ({tc}, '{dc}', {lc}, {vc}, {tmp})".\
         
 sql_string = sql_insert + sql_values
 
+# execute the script, commit changes and disconnect
 try:
     c.execute(sql_string)
     conn.commit()

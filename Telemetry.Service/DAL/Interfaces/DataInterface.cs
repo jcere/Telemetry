@@ -22,5 +22,14 @@ namespace Telemetry.Service.DAL.Interfaces
         /// <param name="samples">number of samples</param>
         /// <returns>list of temperature records</returns>
         List<Temperature> GetSamplesFrom(double time, int samples);
+
+        /// <summary>
+        /// extract samples from start time, within time span, and at given periodicity
+        /// </summary>
+        /// <param name="time">start time</param>
+        /// <param name="span">span of intetrest</param>
+        /// <param name="period">ex. 2 will return 1 in 2 samples</param>
+        /// <returns>list of temperature records</returns>
+        List<Temperature> GetSamplesFromSpan(double time, double span, int period);
     }
 }
