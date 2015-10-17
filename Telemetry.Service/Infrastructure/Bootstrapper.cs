@@ -22,6 +22,7 @@ namespace Telemetry.Service.Infrastructure
             // start dependency injection
             Container = BuildUnityContainer();
             GlobalConfiguration.Configuration.DependencyResolver = new UnityResolver(Container);
+
         }
 
         /// <summary>
@@ -36,6 +37,8 @@ namespace Telemetry.Service.Infrastructure
             var myAssemblies = AppDomain
                 .CurrentDomain
                 .GetAssemblies().Where(a => a.FullName.StartsWith("Telemetry")).ToArray();
+
+            System.Data.DataTable table = System.Data.Common.DbProviderFactories.GetFactoryClasses();
 
             // it is not necessary to register controllers
             container.RegisterType<IDataInterface, TempRepository>();

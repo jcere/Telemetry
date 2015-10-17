@@ -15,8 +15,8 @@ namespace Telemetry.Service.DAL.Models
     public class Temperature
     {
 
-        [Key]
         public int ID { get; set; }
+        public int TempID { get; set; }
         public double Time { get; set; }
         public int Level { get; set; }
         public double Volt { get; set; }

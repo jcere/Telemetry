@@ -5,6 +5,6 @@ namespace Telemetry.Service.DAL
 {
     public interface ITimeDomainContext
     {
-        DbSet<Temperature> Temps { get; set; }
+        DbSet<Temperature> Temperatures { get; set; }
     }
 }
