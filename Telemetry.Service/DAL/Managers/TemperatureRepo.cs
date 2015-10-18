@@ -65,7 +65,7 @@ namespace Telemetry.Service.DAL.Managers
         }
 
         /// <summary>
-        /// write temperature data to the DB
+        /// write temperature data to DbSet then save
         /// </summary>
         public bool AddDataToDb(List<Temperature> data)
         {
@@ -73,8 +73,7 @@ namespace Telemetry.Service.DAL.Managers
             {
                 foreach (var item in data)
                 {
-                    db.Temperatures.Add(data.First());
-                    db.SaveChanges();
+                    db.Temperatures.Add(item);
                 }
                 db.SaveChanges();
                 return true;
@@ -96,8 +95,8 @@ namespace Telemetry.Service.DAL.Managers
         public List<Temperature> ParseTemperatureDataFile()
         {
             List<Temperature> data = new List<Temperature>();
-            string filePath = "E:\\Temp\\vdv.csv";
-            if(filePath == null) filePath = GetAppSettingFromSiteWebConfig(WebConfigKey);
+            string filePath = null; // GetAppSettingFromSiteWebConfig(WebConfigKey);
+            filePath = "E:\\Temp\\vdv.csv";
 
             string[] rawData = Tools.ReadFileIntoArray(filePath);
             foreach (var item in rawData)
