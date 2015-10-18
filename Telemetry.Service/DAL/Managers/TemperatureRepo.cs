@@ -73,6 +73,7 @@ namespace Telemetry.Service.DAL.Managers
             {
                 foreach (var item in data)
                 {
+                    if (db.Temperatures.Select(s => s.TempID).Contains(item.TempID)) continue;
                     db.Temperatures.Add(item);
                 }
                 db.SaveChanges();
