@@ -24,13 +24,14 @@ namespace Telemetry.Service.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             // Database does not pluralize table names
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
     }
 
     public class MyDbConfiguration : DbConfiguration
     {
+
         /// <summary>
         /// my db configuration from web.config
         /// </summary>

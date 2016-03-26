@@ -16,7 +16,6 @@ namespace Telemetry.Service.DAL.Models
     {
 
         public int ID { get; set; }
-        public int TempID { get; set; }
         public double Time { get; set; }
         public int Level { get; set; }
         public double Volt { get; set; }
@@ -25,6 +24,9 @@ namespace Telemetry.Service.DAL.Models
 
         [NotMapped]
         public double TempK { get { return this.TempC + 273.15; } }
+
+        [NotMapped]
+        public int TempID { get; set; }
 
     }
 }

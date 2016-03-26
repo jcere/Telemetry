@@ -97,7 +97,7 @@ namespace Telemetry.Service.DAL.Managers
         {
             List<Temperature> data = new List<Temperature>();
             string filePath = null; // GetAppSettingFromSiteWebConfig(WebConfigKey);
-            filePath = "E:\\Temp\\vdv.csv";
+            filePath = "D:\\Temp\\vdv.csv";
 
             string[] rawData = Tools.ReadFileIntoArray(filePath);
             foreach (var item in rawData)
