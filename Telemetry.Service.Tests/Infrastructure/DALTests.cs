@@ -18,21 +18,6 @@ namespace Telemetry.Service.Tests.Infrastructure
             Assert.AreEqual(temperatureData.Count, 493);
         }
 
-        [TestMethod]
-        public void AddDataToDB()
-        {
-            TempRepository repo = new TempRepository();
-
-            var temperatureData = repo.ParseTemperatureDataFile();
-
-            bool completed = repo.AddDataToDb(temperatureData);
-
-            var allData = repo.GetData();
-
-            Assert.IsNotNull(temperatureData);
-            Assert.IsTrue(completed);
-            Assert.AreEqual(allData.Count, 493);
-        }
 
         [TestMethod]
         public void AddDataToDBWithoutDuplicates()
@@ -49,7 +34,7 @@ namespace Telemetry.Service.Tests.Infrastructure
             Assert.IsNotNull(temperatureData);
             Assert.IsTrue(completed0);
             Assert.IsTrue(completed1);
-            Assert.AreEqual(493, allData.Count);
+            Assert.AreEqual(17, allData.Count);
         }
     }
 }

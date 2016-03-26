@@ -71,9 +71,14 @@ namespace Telemetry.Service.DAL.Managers
         {
             try
             {
+
                 foreach (var item in data)
                 {
-                    if (db.Temperatures.Select(s => s.TempID).Contains(item.TempID)) continue;
+                    var temperatures = db.Temperatures.ToList();
+                    if (temperatures.Any(s => s.IsDuplicate(item)))
+                    {
+                        continue;
+                    }
                     db.Temperatures.Add(item);
                 }
                 db.SaveChanges();
@@ -84,7 +89,13 @@ namespace Telemetry.Service.DAL.Managers
                 log.Debug(ex);
                 return false;
             }
+            catch (Exception ex)
+            {
+                log.Debug(ex);
+                return false;
+            }
         }
+
 
         // TODO: what other sorts of reports would we like to see?
 
@@ -104,7 +115,7 @@ namespace Telemetry.Service.DAL.Managers
             {
                 string[] splitzed = item.Split(',');
                 Temperature temp = new Temperature();
-                temp.TempID = Convert.ToInt32(splitzed[0]);
+                temp.RemoteId = Convert.ToInt32(splitzed[0]);
                 temp.Time = Convert.ToDouble(splitzed[1]);
                 temp.Level = Convert.ToInt32(splitzed[2]);
                 temp.Volt = Convert.ToDouble(splitzed[3]);

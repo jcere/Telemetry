@@ -15,7 +15,8 @@ namespace Telemetry.Service.DAL.Models
     public class Temperature
     {
 
-        public int ID { get; set; }
+        public int Id { get; set; }
+        public int RemoteId { get; set; }
         public double Time { get; set; }
         public int Level { get; set; }
         public double Volt { get; set; }
@@ -25,8 +26,24 @@ namespace Telemetry.Service.DAL.Models
         [NotMapped]
         public double TempK { get { return this.TempC + 273.15; } }
 
-        [NotMapped]
-        public int TempID { get; set; }
+        /// <summary>
+        /// check if this is duplicate record
+        /// </summary>
+        public bool IsDuplicate(Temperature temp)
+        {
+            // TODO: checking duplicate data, may want to add some factors
+            //if (CompareTimeStamp(temp)) return true;
+            if (this.RemoteId == temp.RemoteId) return true;
+            return false;
+        }
 
+        private bool CompareTimeStamp(Temperature temp)
+        {
+            var myTime = Math.Round(this.Time, 2);
+            var theirTime = Math.Round(temp.Time, 2);
+            if (myTime == theirTime)
+                return true;
+            return false;
+        }
     }
 }
