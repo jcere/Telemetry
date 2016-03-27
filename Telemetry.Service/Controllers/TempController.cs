@@ -43,6 +43,7 @@ namespace Telemetry.Service.Controllers
             return GetJsonResult(model);
         }
 
+
         // GET api/<controller>?<time=''>&<span=''>
         /// <summary>
         /// get temperature data starting at time and continuing for a number of samples
