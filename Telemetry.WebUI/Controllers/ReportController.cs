@@ -1,21 +1,30 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Telemetry.WebUI.Models;
 
 namespace Telemetry.WebUI.Controllers
 {
-    public class PlotController : Controller
+
+    public class ReportController : Controller
     {
-        // GET: Plot
-        public ActionResult Index()
+
+        public ReportController()
         {
-            return View();
+            // service connection
+            this.ViewData["serviceUrl"] = Properties.Settings.Default.ServiceUrl;
         }
 
-        // GET: Plot/Details/5
-        public ActionResult Details(int id)
+
+        // GET: index
+        public ActionResult Index()
         {
             return View();
         }

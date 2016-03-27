@@ -20,24 +20,13 @@
 
 <script>
 
-    @*$(document).ready(function () {
-        $('#btnGetData').click(function () {
-            $.ajax({
-                type: 'GET',
-                url: '@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "temp" })',
-                success: function (data) {
-                    plotFunction(data);
-                },
-                dataType: "json"
-            });
-        });
-    });*@
-
     $(document).ready(function () {
+
+        var urlString = "@ViewData["serviceUrl"]" + "//api" + "//temp";
         $('#btnGetData').click(function () {
             $.ajax({
                 type: 'GET',
-                url: '@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "temp", time = 1443718801.49, span = 172800, period = 2 })',
+                url: urlString,
                 success: function (data) {
                     plotFunction(data);
                 },
@@ -50,7 +39,7 @@
 
         var ctx = document.getElementById("myChart").getContext("2d");
         var tempData = jsonObj.Data.Data;
-        // jQuery.map:
+
         var y = tempData.map(function (v) {
             return v.TempC;
         });
