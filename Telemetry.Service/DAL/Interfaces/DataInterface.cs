@@ -31,5 +31,10 @@ namespace Telemetry.Service.DAL.Interfaces
         /// <param name="period">ex. 2 will return 1 in 2 samples</param>
         /// <returns>list of temperature records</returns>
         List<Temperature> GetSamplesFromSpan(double time, double span, int period);
+
+        /// <summary>
+        /// get record by id
+        /// </summary>
+        List<Temperature> GetById(int id);
     }
 }

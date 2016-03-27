@@ -9,6 +9,9 @@ namespace Telemetry.Service
     {
         public static void Register(HttpConfiguration config)
         {
+            // enable cross domain 
+            config.EnableCors();
+
             // Web API configuration and services
             config.MapHttpAttributeRoutes();
 

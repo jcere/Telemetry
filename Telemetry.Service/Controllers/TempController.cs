@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Mvc;
 using Telemetry.Service.DAL.Interfaces;
 using Telemetry.Service.DAL.Models;
@@ -14,6 +15,7 @@ namespace Telemetry.Service.Controllers
     /// <summary>
     /// temperature data controller
     /// </summary>
+    [EnableCors(origins: "http://localhost:60096", headers: "*", methods: "*")]
     public class TempController : ApiController
     {
 
@@ -51,6 +53,14 @@ namespace Telemetry.Service.Controllers
         public JsonResult Get(double time, int samples)
         {
             var data = tempRepo.GetSamplesFrom(time, samples);
+            model = new TempViewModel(data);
+            return GetJsonResult(model);
+        }
+
+        // simple get by id for testing
+        public JsonResult Get(int id)
+        {
+            var data = tempRepo.GetById(id);
             model = new TempViewModel(data);
             return GetJsonResult(model);
         }

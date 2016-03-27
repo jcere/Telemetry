@@ -46,6 +46,18 @@ namespace Telemetry.Service.DAL.Managers
         }
 
         /// <summary>
+        ///  extract given number of samples starting at time
+        /// </summary>
+        public List<Temperature> GetById(int id)
+        {
+            // get data for period following time, return num samples following
+            var filtered = db
+                .Temperatures.Where(s => s.Id == id);
+
+            return filtered.ToList();
+        }
+
+        /// <summary>
         /// get samples given time span, start time, and sample period
         /// </summary>
         public List<Temperature> GetSamplesFromSpan(double time, double span, int period)
@@ -100,6 +112,8 @@ namespace Telemetry.Service.DAL.Managers
         // TODO: what other sorts of reports would we like to see?
 
         // TODO: data validation - check for gaps, check for noise
+
+        // TODO: change remote daq data format to JSON
 
         /// <summary>
         /// parse temperature data from csv array
