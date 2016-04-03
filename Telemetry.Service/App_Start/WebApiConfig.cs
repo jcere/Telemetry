@@ -24,7 +24,7 @@ namespace Telemetry.Service
             config.Routes.MapHttpRoute(
                 name: "TimeSpanApi",
                 routeTemplate: "api/{controller}/{action}/{time}/{samples}",
-                defaults: new { controller = "temp", action = "get" }
+                defaults: new { controller = "temp", action = "get", time = 0, temp = 0 }
             );
         }
     }

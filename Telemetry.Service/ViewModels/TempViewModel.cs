@@ -17,7 +17,7 @@ namespace Telemetry.Service.ViewModels
             this.Data = new List<TempSample>();
             foreach (var item in collection)
             {
-                this.Data.Add(new TempSample(item.Id, item.Time, item.TempC));
+                this.Data.Add(new TempSample(item.Id, item.Time, item.TempC, item.Volt));
             }
         }
 
@@ -32,11 +32,12 @@ namespace Telemetry.Service.ViewModels
     {
         private string localTime;
          
-        public TempSample(int id, double time, double tempC)
+        public TempSample(int id, double time, double tempC, double voltage)
         {
             Id = id;
             Time = time;
             TempC = tempC;
+            Voltage = voltage;
             SetLocalTime();
         }
 
@@ -44,6 +45,7 @@ namespace Telemetry.Service.ViewModels
         public double Time { get; set; }
         public string DateTime { get { return localTime; } }
         public double TempC { get; set; }
+        public double Voltage { get; private set; }
 
         private void SetLocalTime()
         {

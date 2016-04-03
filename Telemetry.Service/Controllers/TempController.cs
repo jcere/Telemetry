@@ -58,7 +58,9 @@ namespace Telemetry.Service.Controllers
             return GetJsonResult(model);
         }
 
-        // simple get by id for testing
+        /// <summary>
+        /// get single sample by id
+        /// </summary>
         public JsonResult Get(int id)
         {
             var data = tempRepo.GetById(id);
@@ -80,20 +82,20 @@ namespace Telemetry.Service.Controllers
             return GetJsonResult(model);
         }
 
-        // POST api/<controller>
-        public void Post([FromBody]string value)
-        {
-        }
+        //// POST api/<controller>
+        //public void Post([FromBody]string value)
+        //{
+        //}
 
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+        //// PUT api/<controller>/5
+        //public void Put(int id, [FromBody]string value)
+        //{
+        //}
 
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
-        }
+        //// DELETE api/<controller>/5
+        //public void Delete(int id)
+        //{
+        //}
 
         private JsonResult GetJsonResult(TempViewModel model)
         {
