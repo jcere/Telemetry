@@ -4,26 +4,39 @@
 }
 
 <h3>Time Based Plot </h3>
-<canvas id="myChart" width="900" height="400"></canvas>
+
 <div>
-    <cpanel>
-        <label for="tbTime">Time Start</label>
-        <input class="tb" type="text" name="time" id="tbTime" />
-        <label for="tbSpan">Time Span</label>
-        <input class="tb" type="text" name="timeSpan" id="tbSpan" />
-        <label for="tbPeriod">Period</label>
-        <input class="tb" type="text" name="period"  id="tbPeriod" />
-        <input class="btn btn-default" id="btnClearData" type="button" value="Clear" />
+    <cpanel class="plotControls">
         <input class="btn btn-default" id="btnGetData" type="button" value="Plot" />
+        <label for="tbTime" class="plotControls">Time Start</label>
+        <input class="tb" type="text" name="time" id="tbTime" />
+        <label for="tbSpan" class="plotControls">Time Span</label>
+        <input class="tb" type="text" name="samples" id="tbSamples" />
+        @*<label for="tbPeriod">Period</label>
+            <input class="tb" type="text" name="period"  id="tbPeriod" />
+            <input class="btn btn-default" id="btnClearData" type="button" value="Clear" />*@
+        <label for="tbId">Record Id</label>
+        <input class="tb" type="text" name="recordId" id="tbId" />
+        @*.DropDownListFor(p => p.SelectedCountryID,
+        Model.CountryIEnum,
+        "Select a Country",
+        new
+        {
+            @id = "Country-DropdownID",
+            @class = "Country-DropdownCls"
+        })*@
     </cpanel>
 </div>
+
+<canvas class="plot" id="myChart" width="900" height="400"></canvas>
 
 <script>
 
     $(document).ready(function () {
 
-        var urlString = "@ViewData["serviceUrl"]" + "//api" + "//temp";
         $('#btnGetData').click(function () {
+            var urlString = getUrl();
+
             $.ajax({
                 type: 'GET',
                 url: urlString,
@@ -35,13 +48,43 @@
         });
     });
 
+    function getUrl()
+    {
+        var idStr = document.getElementById("tbId").value;
+        var start = document.getElementById("tbTime").value;
+        var samples = document.getElementById("tbSamples").value;
+
+        var urlString = urlString = "@ViewData["serviceUrl"]" + "//api" + "//temp" + "//get";
+
+        if (!isBlank(idStr)) {
+            urlString += '//' + idStr;
+            console.log(urlString);
+        } else if (!isBlank(start) & !isBlank(samples)) {
+            urlString += '//' + start.toString() + '//' + samples.toString();
+            console.log(urlString);
+        }
+        return urlString;
+    }
+
+    // TODO: figure out input validation
+    //function isValidInput(str)
+    //{
+    //    return (!isBlank(str) && isNumeric(str));
+    //}
+
+    function isBlank(str) {
+        return (!str || /^\s*$/.test(str));
+    }
+
+    var propName = "TempC";
+
     function plotFunction(jsonObj) {
 
         var ctx = document.getElementById("myChart").getContext("2d");
         var tempData = jsonObj.Data.Data;
 
-        var y = tempData.map(function (v) {
-            return v.TempC;
+        var toPlot = tempData.map(function (v) {
+            return v[propName];
         });
 
         var x = tempData.map(function (v) {
@@ -180,7 +223,7 @@
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: y
+                    data: toPlot
                 }
             ]
         };
