@@ -12,6 +12,12 @@ namespace Telemetry.Service.ViewModels
     public class TempViewModel
     {
 
+        private static List<string> columns;
+        public static List<string> ColumnNames
+        {
+            get { return GetColumnDescriptors(); }
+        }
+
         public TempViewModel(List<Temperature> collection)
         {
             this.Data = new List<TempSample>();
@@ -21,10 +27,24 @@ namespace Telemetry.Service.ViewModels
             }
         }
 
+
         /// <summary>
         /// temperature plot data
         /// </summary>
         public List<TempSample> Data { get; set; }
+
+        // TODO: get data descriptors from a table of metadata
+        public static List<string> GetColumnDescriptors()
+        {
+            // TEMP: get headers from model properties
+            if (columns == null)
+            {
+                Type atype = typeof(Temperature);
+                var dict = Tools.General.GetPublicProperties(atype);
+                columns = dict.Keys.ToList();
+            }
+            return columns;
+        }
 
     }
 

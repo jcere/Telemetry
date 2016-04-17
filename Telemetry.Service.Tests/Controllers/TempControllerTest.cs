@@ -5,8 +5,9 @@ using Telemetry.Service.ViewModels;
 using Telemetry.Service.Infrastructure;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Web.Http;
 using Microsoft.Practices.Unity;
-using Telemetry.Service.DAL;
+using System.Web;
 
 namespace Telemetry.WebUI.Tests.Controllers
 {
@@ -47,6 +48,21 @@ namespace Telemetry.WebUI.Tests.Controllers
         {
             BootStrapper.Initialize();
             var controller = BootStrapper.Container.Resolve<TempController>();
+            // taking 5 hour span - time in seconds - +/- 2.5 = 5 samples
+            JsonResult jsonResult = controller.Get(1443250801.95, 24);
+            Assert.IsNotNull(jsonResult);
+
+            TempViewModel model = jsonResult.Data as TempViewModel;
+            Assert.IsNotNull(model);
+            Assert.AreEqual(model.Data.Count, 24);
+        }
+
+        [TestMethod]
+        public void GetDataDescriptors()
+        {
+            BootStrapper.Initialize();
+            var controller = BootStrapper.Container.Resolve<TempController>();
+
             // taking 5 hour span - time in seconds - +/- 2.5 = 5 samples
             JsonResult jsonResult = controller.Get(1443250801.95, 24);
             Assert.IsNotNull(jsonResult);

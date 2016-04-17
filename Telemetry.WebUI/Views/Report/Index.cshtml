@@ -10,16 +10,13 @@
         <input class="btn btn-default" id="btnGetData" type="button" value="Plot" />
         <label for="tbTime" class="plotControls">Time Start</label>
         <input class="tb" type="text" name="time" id="tbTime" />
-        <label for="tbSpan" class="plotControls">Time Span</label>
+        <label for="tbSpan" class="plotControls">Num Samples</label>
         <input class="tb" type="text" name="samples" id="tbSamples" />
-        @*<label for="tbPeriod">Period</label>
-            <input class="tb" type="text" name="period"  id="tbPeriod" />
-            <input class="btn btn-default" id="btnClearData" type="button" value="Clear" />*@
         <label for="tbId">Record Id</label>
         <input class="tb" type="text" name="recordId" id="tbId" />
         @*.DropDownListFor(p => p.SelectedCountryID,
         Model.CountryIEnum,
-        "Select a Country",
+        "Select property",
         new
         {
             @id = "Country-DropdownID",
@@ -48,6 +45,7 @@
         });
     });
 
+    // create url for my web api route
     function getUrl()
     {
         var idStr = document.getElementById("tbId").value;
@@ -66,23 +64,24 @@
         return urlString;
     }
 
-    // TODO: figure out input validation
-    //function isValidInput(str)
-    //{
-    //    return (!isBlank(str) && isNumeric(str));
-    //}
-
     function isBlank(str) {
         return (!str || /^\s*$/.test(str));
     }
 
     var propName = "TempC";
+    var myLineChart = null;
 
     function plotFunction(jsonObj) {
+
+        // clear old data/chart
+        if (myLineChart != null) {
+            myLineChart.destroy();
+        }
 
         var ctx = document.getElementById("myChart").getContext("2d");
         var tempData = jsonObj.Data.Data;
 
+        // select data by property name
         var toPlot = tempData.map(function (v) {
             return v[propName];
         });
@@ -228,7 +227,7 @@
             ]
         };
 
-        var myLineChart = new Chart(ctx).Line(data, options);
+        myLineChart = new Chart(ctx).Line(data, options);
     };
 
 </script>

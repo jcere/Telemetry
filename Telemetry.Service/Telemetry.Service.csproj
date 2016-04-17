@@ -221,7 +221,6 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\TempController.cs" />
     <Compile Include="DAL\Interfaces\ITimeDomainContext.cs" />
-    <Compile Include="DAL\Managers\Tools.cs" />
     <Compile Include="DAL\Models\Temperature.cs" />
     <Compile Include="DAL\Interfaces\DataInterface.cs" />
     <Compile Include="DAL\Managers\TemperatureRepo.cs" />
@@ -237,6 +236,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Tools\General.cs" />
     <Compile Include="ViewModels\TempViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

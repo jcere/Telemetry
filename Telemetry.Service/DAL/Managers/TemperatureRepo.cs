@@ -25,6 +25,17 @@ namespace Telemetry.Service.DAL.Managers
             this.db = new TelemetryContext();
         }
 
+        // TODO: get data descriptors from a table of metadata
+        public List<string> GetColumnDescriptors()
+        {
+            // TEMP: get headers from model properties
+            List<string> descs = null;
+            Type atype = typeof(Temperature);
+            var dict = Tools.General.GetPublicProperties(atype);
+            descs = dict.Keys.ToList();
+            return descs;
+        }
+
         /// <summary>
         /// extract all data fron db temp table
         /// </summary>
@@ -124,7 +135,7 @@ namespace Telemetry.Service.DAL.Managers
             string filePath = null; // GetAppSettingFromSiteWebConfig(WebConfigKey);
             filePath = "D:\\Temp\\vdv.csv";
 
-            string[] rawData = Tools.ReadFileIntoArray(filePath);
+            string[] rawData = Tools.General.ReadFileIntoArray(filePath);
             foreach (var item in rawData)
             {
                 string[] splitzed = item.Split(',');

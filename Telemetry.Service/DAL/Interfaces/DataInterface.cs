@@ -9,6 +9,12 @@ namespace Telemetry.Service.DAL.Interfaces
 {
     public interface IDataInterface
     {
+
+        /// <summary>
+        /// get column names or descriptors
+        /// </summary>
+        List<string> GetColumnDescriptors();
+
         /// <summary>
         /// retieve all temperature data from database
         /// </summary>

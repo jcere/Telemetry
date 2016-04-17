@@ -17,14 +17,14 @@ namespace Telemetry.Service
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                routeTemplate: "api/{controller}/{action}/{id}",
+                defaults: new { controller = "temp", action = "get", id = RouteParameter.Optional }
             );
 
             config.Routes.MapHttpRoute(
                 name: "TimeSpanApi",
                 routeTemplate: "api/{controller}/{action}/{time}/{samples}",
-                defaults: new { controller = "temp", action = "get", time = 0, temp = 0 }
+                defaults: new { controller = "temp", action = "get", time = RouteParameter.Optional, samples = RouteParameter.Optional }
             );
         }
     }
