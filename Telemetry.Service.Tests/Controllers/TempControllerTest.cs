@@ -20,7 +20,7 @@ namespace Telemetry.WebUI.Tests.Controllers
         {
             //var controller = new TempController();
             BootStrapper.Initialize();
-            var controller = BootStrapper.Container.Resolve<TempController>();
+            var controller = Container.Instance.Resolve<TempController>();
             var temperatures = controller.Get();
 
             Assert.IsNotNull(temperatures);
@@ -34,7 +34,7 @@ namespace Telemetry.WebUI.Tests.Controllers
         public void GetAllDataInJSON()
         {
             BootStrapper.Initialize();
-            var controller = BootStrapper.Container.Resolve<TempController>();
+            var controller = Container.Instance.Resolve<TempController>();
 
             JsonResult jsonResult = controller.Get();
             Assert.IsNotNull(jsonResult);
@@ -47,7 +47,7 @@ namespace Telemetry.WebUI.Tests.Controllers
         public void GetSpanDataInJSON()
         {
             BootStrapper.Initialize();
-            var controller = BootStrapper.Container.Resolve<TempController>();
+            var controller = Container.Instance.Resolve<TempController>();
             // taking 5 hour span - time in seconds - +/- 2.5 = 5 samples
             JsonResult jsonResult = controller.Get(1443250801.95, 24);
             Assert.IsNotNull(jsonResult);
@@ -61,7 +61,7 @@ namespace Telemetry.WebUI.Tests.Controllers
         public void GetDataDescriptors()
         {
             BootStrapper.Initialize();
-            var controller = BootStrapper.Container.Resolve<TempController>();
+            var controller = Container.Instance.Resolve<TempController>();
 
             // taking 5 hour span - time in seconds - +/- 2.5 = 5 samples
             JsonResult jsonResult = controller.Get(1443250801.95, 24);

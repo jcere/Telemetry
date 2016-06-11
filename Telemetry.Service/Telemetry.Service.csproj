@@ -220,15 +220,19 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\TempController.cs" />
+    <Compile Include="DAL\FtpConfiguration.cs" />
+    <Compile Include="DAL\Interfaces\IConfig.cs" />
     <Compile Include="DAL\Interfaces\ITimeDomainContext.cs" />
     <Compile Include="DAL\Models\Temperature.cs" />
     <Compile Include="DAL\Interfaces\DataInterface.cs" />
-    <Compile Include="DAL\Managers\TemperatureRepo.cs" />
+    <Compile Include="DAL\Repositories\TemperatureRepo.cs" />
     <Compile Include="DAL\TelemetryContext.cs" />
+    <Compile Include="DAL\Collection.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Bootstrapper.cs" />
+    <Compile Include="Infrastructure\Container.cs" />
     <Compile Include="Infrastructure\UnityResolver.cs" />
     <Compile Include="Infrastructure\Logger.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

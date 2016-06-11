@@ -20,8 +20,11 @@ namespace Telemetry.Service.Tests.Infrastructure
 
             BootStrapper.Initialize();
 
-            Hierarchy hierarchy = log4net.LogManager.GetRepository() as Hierarchy;
-            MemoryAppender mappender = hierarchy.Root.GetAppender("MemoryAppender") as MemoryAppender;
+            Hierarchy hierarchy = 
+                log4net.LogManager.GetRepository() as Hierarchy;
+
+            MemoryAppender mappender = 
+                hierarchy.Root.GetAppender("MemoryAppender") as MemoryAppender;
 
             Assert.IsNotNull(mappender);
         }

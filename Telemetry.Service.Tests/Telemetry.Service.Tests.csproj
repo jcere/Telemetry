@@ -140,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\TempControllerTest.cs" />
+    <Compile Include="Infrastructure\FtpTests.cs" />
     <Compile Include="Infrastructure\LoggerTests.cs" />
     <Compile Include="Infrastructure\DALTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

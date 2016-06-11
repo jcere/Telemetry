@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Telemetry.Service.DAL.Managers;
+using Telemetry.Service.DAL.Repositories;
 
 namespace Telemetry.Service.Tests.Infrastructure
 {

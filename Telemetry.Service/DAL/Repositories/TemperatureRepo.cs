@@ -5,7 +5,7 @@ using Telemetry.Service.DAL.Interfaces;
 using System;
 using System.Data.Entity.Infrastructure;
 
-namespace Telemetry.Service.DAL.Managers
+namespace Telemetry.Service.DAL.Repositories
 {
 
     /// <summary>
@@ -31,7 +31,7 @@ namespace Telemetry.Service.DAL.Managers
             // TEMP: get headers from model properties
             List<string> descs = null;
             Type atype = typeof(Temperature);
-            var dict = Tools.General.GetPublicProperties(atype);
+            var dict = Telemetry.Service.Tools.General.GetPublicProperties(atype);
             descs = dict.Keys.ToList();
             return descs;
         }
